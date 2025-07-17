@@ -1,43 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Filter } from 'lucide-react';
 import Button from '../../components/ui/Button';
 
-interface ProductCard {
-  title: string;
-  image: string;
-  category: string;
-  path: string;
-}
-
-const SoccerKitsPage: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  
-  const products: ProductCard[] = [
+const RugbyKitsPage: React.FC = () => {
+  const products = [
     {
-      title: 'Soccer Jerseys',
-      image: 'https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=2',
-      category: 'Club Kits',
-      path: '/products/soccer-kits/jerseys'
+      title: 'Rugby Jerseys',
+      image: '/sublimated-card.jpg',
+      description: 'Professional rugby jerseys with custom designs',
+      path: '/products/rugby-jerseys'
     },
     {
-      title: 'Soccer Shorts',
-      image: 'https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=2',
-      category: 'Club Kits',
-      path: '/products/soccer-kits/shorts'
+      title: 'Rugby Shorts',
+      image: '/shorts-card.jpg',
+      description: 'Durable rugby shorts built for performance',
+      path: '/products/rugby-shorts'
     },
     {
-      title: 'Full Soccer Kit',
-      image: 'https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=2',
-      category: 'Club Kits',
-      path: '/products/soccer-kits/full-kit'
+      title: 'Full Rugby Kit',
+      image: '/full-kit-card.jpg',
+      description: 'Complete rugby kit with jersey and shorts',
+      path: '/products/full-rugby-kit'
     }
   ];
-
-  const filteredProducts = selectedCategory === 'All' 
-    ? products 
-    : products.filter(product => product.category === selectedCategory);
 
   return (
     <>
@@ -52,28 +38,11 @@ const SoccerKitsPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-5xl md:text-6xl font-bebas mb-6">Soccer Kits</h1>
+            <h1 className="text-5xl md:text-6xl font-bebas mb-6">Rugby Kits</h1>
             <p className="text-lg text-rb-gray-300">
-              Professional soccer apparel designed for peak performance on the field
+              Professional rugby apparel designed for peak performance and durability
             </p>
           </motion.div>
-        </div>
-      </section>
-
-      {/* Filter Section */}
-      <section className="py-8 bg-rb-gray-900 border-b border-rb-gray-800">
-        <div className="container-custom">
-          <div className="flex items-center justify-end gap-4">
-            <Filter size={20} className="text-rb-gray-400" />
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className="bg-rb-gray-800 text-rb-white border border-rb-gray-700 rounded-md px-4 py-2 focus:border-rb-red focus:outline-none"
-            >
-              <option value="All">All Categories</option>
-              <option value="Club Kits">Club Kits</option>
-            </select>
-          </div>
         </div>
       </section>
 
@@ -81,7 +50,7 @@ const SoccerKitsPage: React.FC = () => {
       <section className="py-16 bg-rb-gray-900">
         <div className="container-custom">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProducts.map((product, index) => (
+            {products.map((product, index) => (
               <motion.div
                 key={index}
                 className="group cursor-pointer"
@@ -101,9 +70,7 @@ const SoccerKitsPage: React.FC = () => {
                       <h3 className="text-2xl font-bebas text-rb-white group-hover:text-rb-red transition-colors">
                         {product.title}
                       </h3>
-                      <span className="inline-block bg-rb-red px-3 py-1 rounded-sm text-rb-white text-sm mt-2">
-                        {product.category}
-                      </span>
+                      <p className="text-rb-gray-400 mt-2">{product.description}</p>
                     </div>
                   </div>
                 </Link>
@@ -113,8 +80,52 @@ const SoccerKitsPage: React.FC = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Features Section */}
       <section className="py-20 bg-rb-black">
+        <div className="container-custom">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-4xl font-bebas mb-6">Why Choose Our Rugby Kits?</h2>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                title: 'Built Tough',
+                description: 'Reinforced seams and durable fabrics that can handle the roughest play'
+              },
+              {
+                title: 'Custom Design',
+                description: 'Full sublimation printing for vibrant, long-lasting team colors and logos'
+              },
+              {
+                title: 'Perfect Fit',
+                description: 'Tailored sizing for youth and adult players with optimal comfort and mobility'
+              }
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                className="bg-rb-gray-900 p-8 rounded-lg text-center"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <h3 className="text-2xl font-bebas mb-4">{feature.title}</h3>
+                <p className="text-rb-gray-400">{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-rb-gray-900">
         <div className="container-custom text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -122,7 +133,7 @@ const SoccerKitsPage: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-4xl font-bebas mb-6">Ready to Order Your Soccer Kit?</h2>
+            <h2 className="text-4xl font-bebas mb-6">Ready to Order Your Rugby Kit?</h2>
             <p className="text-rb-gray-300 mb-8">
               Get in touch with our team for custom designs and bulk orders
             </p>
@@ -136,4 +147,4 @@ const SoccerKitsPage: React.FC = () => {
   );
 };
 
-export default SoccerKitsPage;
+export default RugbyKitsPage;
